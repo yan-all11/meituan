@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>setInterval 非平滑动画</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <!-- 
+    <script>
+      let box = document.getElementsByClassName("box")[0];
+      // 动画函数
+      let num = 0;
+      function animation() {
+        if (num < 1000) {
+          num++;
+          box.style.left = num + "px";
+        } else {
+          clearInterval(timer);
+        }
+      }
+      // 开启循环定时器
+      let timer = setInterval(animation);
+    </script> -->
+    <script>
+      let box = document.getElementsByClassName("box")[0];
+      // 动画函数
+      let num = 0;
+      function animation() {
+        if (num < 1000) {
+          num++;
+          box.style.left = num + "px";
+          // 请求动画帧，即屏幕刷新的时候执行回调函数
+          requestAnimationFrame(animation); // 继续执行该函数
+        } else {
+          cancelAnimationFrame(animation); // 清楚该函数
+        }
+      }
+
+      let raID = requestAnimationFrame(animation);
+    </script>
+  </body>
+</html>
