@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeOne from './../views/HomeOne.vue'
 import Mine from './../views/MineOne.vue'
 import Test1 from './../views/Test1.vue'
-import Error from './../views/Error.vue'
+import ErrorFour from '../views/ErrorFour.vue'
 
 const routes = [
   {
@@ -21,10 +21,16 @@ const routes = [
     path: '/mine/:name/:age',
     name: 'Mine',
     component: Mine
-  },{
-    path:'/*',
-    name:"Error",
-    component:Error
+  },
+  {
+    path:'/404',
+    name:"404",
+    component:ErrorFour
+  },
+  {
+    path:'/:pathMatch(.*)*',
+    redirect:'/404',
+    component:ErrorFour
   }
   // {
   //   path: '/about',
