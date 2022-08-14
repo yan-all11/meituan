@@ -3,9 +3,9 @@
 
         <!-- {{$route.query.name}}
         {{$route.query.age}} -->
-    {{$route.params.name}}
-    {{$route.params.age}}
-
+    <!-- {{$route.params.name}}
+    {{$route.params.age}} -->
+    {{$route.query.name}}
     </div>
 </template>
 <script>
