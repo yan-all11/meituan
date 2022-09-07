@@ -1,8 +1,14 @@
 <template>
     <div>
+        <van-list
+            v-model:loading="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="getData"
+        >
         <ul class="list-contaniner">
   
-            <li class="shop-list" v-for="item in list" :key="item.id">
+            <li class="shop-list" v-for="item in list" :key="item.id" @click="goDetail(item.id)">
                 <div class="img-box">
                     <img :src="item.img" alt="">
                 </div>
@@ -27,18 +33,22 @@
                 </div>
             </li>
         </ul>
+        </van-list>
     </div>
 </template>
 
 <script>
-import star from '@/components/star/index.vue'
+import star from '@/components/star/index'
 import {getStore} from '@/api/home'
     export default {
         data(){
             return {
                 current:0,
                 size:10,
-                list:[]
+                list:[],
+                loading:false,
+                finished:false,
+                total:0
             }
         },
         components:{
@@ -51,12 +61,22 @@ import {getStore} from '@/api/home'
                     current:this.current,
                     size:this.size
                 }).then(res=>{
-                    this.list = res.data.list
+                    // this.list = res.data.list
+                    this.list=this.list.concat(res.data.list);
+                    this.loading=false;
+                    this.current++;
+                    this.total=res.data.total;
+                    if(this.list.length>=this.total){
+                        this.finished=true;
+                    }
                 })
+            },
+            goDetail(id){
+                this.$router.push({path:'/detail',query:{id}})
             }
         },
         created(){
-            this.getData();
+            // this.getData();
         }
     }
 </script>
