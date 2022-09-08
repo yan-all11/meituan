@@ -18,7 +18,7 @@ const product = {
         getprodList({ commit }, id) {
             return new Promise(resolve => {
                 getProdById({ id }).then(res => {
-                    console.log(res);
+                    // console.log(res);
                     commit('saveProdList', res.data.goods);
                     resolve();
                 })
